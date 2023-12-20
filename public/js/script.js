@@ -18,16 +18,8 @@ if (
     else{
         $(".navbar").attr("style","background-color:crimson")
     }
-    const pathname = window.location.pathname;
-    const catIdFromPath = pathname.split('/').pop(); // Extract cat_id from the path
-  
-    $('.category').each(function() {
-      const catFromLink = $(this).text().trim();
-  
-      if (catFromLink === catIdFromPath) {
-        $(this).addClass('ac');
-      }
-    });
+   
+
 var swiper1 = new Swiper('.slide-con', {
     // Optional parameters
     loop: true,
@@ -506,6 +498,12 @@ topFunction();
             });
           });
 
+          function image(im) {
+            const imageParts = im.split(",");
+            return imageParts[0]; // Return the first part directly
+          }
+          
+
         $('#search-query').keyup(function() {
             var search_query = $(this).val();
             $('#search-results').attr("style", "display:block; ")
@@ -524,8 +522,9 @@ topFunction();
                   $.each(data, function(i, result) {
                     var text = result.name;
                     var length = 35;
+                    
                     var truncatedText = text.slice(0, length);
-                    $('#search-results').append('<li class="list-search w-100"><a href="/single/' + result.id + '" class="text-decoration-none search-link" style="color:#fff;"><span> - </span>' + truncatedText + '<span><a href="/category/'+result.cat+'" class="text-decoration-none search-link" style="color:gold;">(' + result.cat + ')</a> </span></a></li>');
+                    $('#search-results').append('<li class="list-search w-100"><a href="/single/' + result.id + '" class="text-decoration-none search-link" style="color:#fff;"><span> - </span><img src="/images/'+image(result.cover)+'" width ="70" height="70" class="circle"> ' + truncatedText + '<span><a href="/category/'+result.cat_id+'" class="text-decoration-none search-link" style="color:gold;">(' + result.cat + ')</a> </span></a></li>');
                   });
                 } if(data.length == 0) {
                   $('#search-results').html('<li class="list-search text-center w-100">No Results Found</li>');

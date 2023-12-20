@@ -59,7 +59,7 @@ class SearchController extends Controller
 
         // Retrieve the search query
         $results = DB::select("
-    SELECT prro.id, prro.name, cat.cat 
+    SELECT prro.id, prro.name, prro.cover , cat.cat ,cat.id AS cat_id 
     FROM prro 
     JOIN cat ON prro.cat = cat.id 
     WHERE prro.name LIKE ? 
@@ -67,7 +67,7 @@ class SearchController extends Controller
     OR cat.cat = ? 
     OR prro.name = ?
     UNION
-    SELECT p.id, p.name, c.cat
+    SELECT p.id, p.name,p.cover, c.cat , c.id
     FROM prro p
     JOIN cat c ON p.cat = c.id
     WHERE c.cat IN (

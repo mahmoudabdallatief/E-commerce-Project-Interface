@@ -24,8 +24,8 @@ class ProductsController extends Controller
     }
     public function category($catId)
     {
-        $cats = Category::where('cat', '=', $catId)->pluck('id');
-        $products = Product::whereIn('cat', $cats)->paginate(4);
+        
+        $products = Product::where('cat', $catId)->paginate(4);
 if ($products->isEmpty()) {
     abort(404); // or redirect to a custom 404 page
 }

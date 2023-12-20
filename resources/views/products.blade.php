@@ -56,7 +56,7 @@
              
 <ul class="list-unstyled small w-100">
             <li class="mb-2 mt-2 w-100">
-            <a class="reset-anchor category hvr-pop w-100 shadow {{ empty(request('cat_id')) ? 'ac' : '' }}" href="{{ route('index') }}">ALL Products</a>
+            <a class="category hvr-pop w-100 shadow {{ empty(request('cat_id')) ? 'ac' : '' }}" href="{{ route('index') }}">ALL Products</a>
             </li>
           </ul>
 
@@ -68,8 +68,8 @@
     @foreach($main->children as $row_cat)
     
       <li class="mb-2 mt-2 w-100">
-      <a class="hvr-pop shadow w-100 category "
-   href="{{ url('/category/' . $row_cat->cat) }}">
+      <a class="hvr-pop shadow w-100 category {{ url('/category/' . $row_cat->id) == url()->current() ? 'ac' : '' }}"
+   href="{{ url('/category/' . $row_cat->id) }}">
   {{ $row_cat->cat }}
 </a>
 
