@@ -87,32 +87,35 @@
 </form>
 <div class="rate my-3">
     <div class="rate-display">
-@if($rating_product_count==0)
+    @php
+$ratings = $product->Ratings;
+      $round = round($ratings->avg('rating'));
+      $count = $ratings->count();
+@endphp
+@if($count==0)
 <span style="color:gold !important;"><span style="color: #fff !important;"><b>Product Rating :</b></span> 0 </span>
 @else
-@php
-$rate_product =round($rating_product_avg);
-@endphp
+
 <span class="me-2" style="color:#fff !important;"><span class="me-2" style="color:#fff !important;"><b>Rating For This Product :</b></span> 
        @for($s=1; $s <=5 ; $s++) 
-        <i class="fa fa-star fa-1x " style="{{ $s<=$rate_product ? 'color:gold !important;':'' }}" data-index="{{$s}}"  ></i>
+        <i class="fa fa-star fa-1x " style="{{ $s<=$round ? 'color:gold !important;':'' }}" data-index="{{$s}}"  ></i>
         
-       @endfor  Based on {{$rating_product_count}} Rating</span>
+       @endfor  Based on {{$count}} Rating</span>
 @endif
+
 
                               </div>
                            </div>
                            <br>
                            @if(session('login'))
-                           @php
-                           $rate_user = round($rating_user_avg);
-                           @endphp
+                           
                            <span class="" style="color:#fff !important;"><b>Rate The Product : (Your Rating) </b></span>
     <div align="left" style="color:#fff;">
     @for($e=1; $e<=5; $e++)
-      <i class="fa fa-star fa-1x star" style="{{$e <= $rate_user ? 'color: gold !important' : ''  }}" data-index="{{ $e }}"  ></i>
+      <i class="fa fa-star fa-1x star" style="{{$e <= $rating_user_avg ? 'color: gold !important' : ''  }}" data-index="{{ $e }}"  ></i>
       @endfor
    <br>
+   
                            @else
                            <p class="text-center mb-5 h5"  style="color:gold; ">You Are Not Allow To Rate This Product Because You Are Not Logged in</p>
                            @endif

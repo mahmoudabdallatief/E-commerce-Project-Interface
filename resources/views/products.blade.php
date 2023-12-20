@@ -61,19 +61,22 @@
           </ul>
 
           <div class="w-100">
-            @foreach($categories as $main)
-              <h5 class="mb-4 mt-5 head-cat shadow">{{ $main->cat }}</h5>
-
-              <ul class="list-unstyled small w-100">
-                @foreach($main->children as $row_cat)
-                  <li class="mb-2 mt-2 w-100">
-                  <a class="hvr-pop shadow w-100 category {{ url('/category/' . $row_cat->id) == url()->current()   ? 'ac' : '' }}" href="{{ url('/category/' . $row_cat->id) }}">
-    {{ $row_cat->cat }}
+          @foreach($categories as $main)
+  <h5 class="mb-4 mt-5 head-cat shadow">{{ $main->cat }}</h5>
+  <ul class="list-unstyled small w-100">
+    
+    @foreach($main->children as $row_cat)
+    
+      <li class="mb-2 mt-2 w-100">
+      <a class="hvr-pop shadow w-100 category "
+   href="{{ url('/category/' . $row_cat->cat) }}">
+  {{ $row_cat->cat }}
 </a>
-                  </li>
-                @endforeach
-              </ul>
-            @endforeach
+
+      </li>
+    @endforeach
+  </ul>
+@endforeach
 
   
   </div>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-
+use App\Models\Product;
 class SearchController extends Controller
 {
     public function index(Request $request)
@@ -21,8 +21,7 @@ class SearchController extends Controller
         } else {
             $pagename = $search;
         }
-        $products = DB::table('prro')
-        ->join('cat', 'prro.cat', '=', 'cat.id')
+        $products = Product::join('cat', 'prro.cat', '=', 'cat.id')
         ->leftJoin('cat as parent_cat', 'cat.parent', '=', 'parent_cat.id')
         ->where(function ($query) use ($search) {
             $query->where(function ($query) use ($search) {
@@ -39,6 +38,7 @@ class SearchController extends Controller
         })
         ->select('prro.id', 'prro.name', 'prro.cover', 'prro.date', 'prro.price', 'prro.offer')
         ->distinct()
+        ->with(['Ratings'])
         ->orderBy('prro.id')
         ->paginate(5);
 

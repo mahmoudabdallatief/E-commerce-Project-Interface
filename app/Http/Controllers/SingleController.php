@@ -19,7 +19,7 @@ class SingleController extends Controller
 public function single($id)
 {
     $session = session('login');
-    $product = Product::with(['category', 'brand'])
+    $product = Product::with(['category', 'brand','Ratings'])
     ->where('id', '=', $id)
     ->firstOrFail();
 
@@ -31,17 +31,14 @@ public function single($id)
     
     $comments = Comment::where('id_pro', $id)->orderBy('id', 'desc')->get();
     $num = count($comments);
-    $rating_product_count = Rating::where("product_id",$id)->count();
-    $rating_product_avg = Rating::where("product_id",$id)->avg('rating');
-    $rating_user_avg = Rating::where("product_id",$id)->where("user_id",$session)->avg('rating');
+    
+    $rating_user_avg = round(Rating::where("product_id",$id)->where("user_id",$session)->avg('rating'));
     if($num==0){
         $message = 'There is No Comment For This Product';
         return view('single', [
             'product' => $product,
             'related_products' => $related_products,
             'message' => $message,
-            'rating_product_count'=> $rating_product_count,
-            'rating_product_avg' => $rating_product_avg,
             'rating_user_avg' => $rating_user_avg
         ]);
     }
@@ -50,8 +47,6 @@ public function single($id)
             'product' => $product,
             'related_products' => $related_products,
             'comments' => $comments,
-            'rating_product_count'=> $rating_product_count,
-            'rating_product_avg' => $rating_product_avg,
             'rating_user_avg' => $rating_user_avg
         ]);
     }

@@ -24,7 +24,8 @@ class ProductsController extends Controller
     }
     public function category($catId)
     {
-        $products = Product::where('cat', $catId)->paginate(4);
+        $cats = Category::where('cat', '=', $catId)->pluck('id');
+        $products = Product::whereIn('cat', $cats)->paginate(4);
 if ($products->isEmpty()) {
     abort(404); // or redirect to a custom 404 page
 }
@@ -33,6 +34,6 @@ if ($products->isEmpty()) {
         foreach ($categories as $category) {
             $category->children = Category::where('parent', $category->id)->get();
         }
-        return view('products', ['products' => $products, 'categories'=>$categories]);
+        return view('products', ['products' => $products, 'categories'=>$categories ,'cat'=>$cats]);
     }
 }

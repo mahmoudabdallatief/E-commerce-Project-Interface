@@ -14,8 +14,13 @@ class CartController extends Controller
 
 public function index()
 {
+    
     $session = session('login');
-    $carts = Cart::with('product')->where('id_user', $session)->orderBy('id', 'desc')->get();
+    $carts = Cart::with('product')
+    ->where('id_user', $session)
+    ->orderBy('id', 'desc')
+    ->get();
+   
     $num = count($carts);
     $time = date('m/d/Y H:i:s', time());
     $time_num= strtotime($time)+3600;

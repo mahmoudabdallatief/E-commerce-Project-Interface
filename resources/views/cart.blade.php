@@ -24,7 +24,7 @@
         $img_count = count($img_explode);
         @endphp
         
-        @if ($cart->product->id == $cart->id_pro)
+        
         <div class="col-md-4 pt-3">
               <div class="w-100 @if ($date_num > $time_num) new @endif">
               @foreach($img_explode as $key => $value)
@@ -44,12 +44,20 @@
               <p class="mt-4"><b class="text-light">Offer :</b> {{$cart->product->offer}} $.</p>
                @endif
                <div class="rate my-3">
-            @php
-            $rate = DB::table('ratings')->where('product_id', $cart->product->id)->first();
-            $round = round(DB::table('ratings')->where('product_id', $cart->product->id)->avg('rating'));
-            @endphp
-            @if($cart->product->id == $cart->id_pro)
-            @if (DB::table('ratings')->where('product_id', $cart->product->id)->count()  == 0)
+               @if ($cart->product)
+                
+               
+        @php
+        $ratings = $cart->product->Ratings;
+      $round = round($ratings->avg('rating'));
+      $count = $ratings->count();
+        @endphp
+   
+
+               
+           
+        
+            @if ($count  == 0)
                 <span style="color:gold !important;"><span style="color:#fff !important;"><b>Product Rating :</b> </span> 0 </span>
             @else
            
@@ -60,10 +68,15 @@
                     @for ($s = 1; $s <= 5; $s++)
                         <i class="fa fa-star fa-1x " style="{{ $s <= $round ? 'color: gold !important;' : '' }}" data-index="{{ $s }}"></i>
                     @endfor
-                    Based on {{ DB::table('ratings')->where('product_id', $cart->product->id)->count() }} Rating
+                    Based on {{ $count }} Rating
                 </span>
+           
             @endif
             @endif
+          
+            
+            
+            
 </div>
 <div class="align-middle border-0 mb-4  m-auto">
                   <br>
@@ -107,7 +120,7 @@
               </div>
             </div>
           
-          @endif
+          
           
       @endforeach
       @endif
