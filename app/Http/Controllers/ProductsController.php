@@ -34,6 +34,6 @@ if ($products->isEmpty()) {
         foreach ($categories as $category) {
             $category->children = Category::where('parent', $category->id)->get();
         }
-        return view('products', ['products' => $products, 'categories'=>$categories ,'cat'=>$cats]);
+        return view('products', ['products' => $products, 'categories'=>$categories]);
     }
 }
