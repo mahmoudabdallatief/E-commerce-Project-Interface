@@ -37,7 +37,7 @@ var swiper1 = new Swiper('.slide-con', {
       },
   
   });
-
+  
   var session= $(".session").val()
   if(session){
       Swal.fire({
