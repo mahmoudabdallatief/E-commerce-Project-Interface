@@ -86,7 +86,7 @@ public function addtocart(Request $request){
             'updated_at' => null
 
         ]);
-        return redirect()->route('cart');
+        return redirect()->route('cart')->with('addtocart','add');
     }
     else{
         Cookie::queue('price', $request->input('price'), 30);

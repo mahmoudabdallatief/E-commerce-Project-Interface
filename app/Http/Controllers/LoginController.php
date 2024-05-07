@@ -68,7 +68,7 @@ class LoginController extends Controller
                 ]);
                
     
-                return redirect()->route('cart');
+                return redirect()->route('cart')->with('addtocart','add');
             }
             if ( !$request->session()->has('login')) {
                 return redirect()->route('login')->with('failed','2');

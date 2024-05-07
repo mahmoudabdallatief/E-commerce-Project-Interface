@@ -1,6 +1,7 @@
 @extends('layout')
 @section('title','Cart')
 @section('content')
+
 @if(session('failed'))
 <script>
   Swal.fire({
@@ -13,6 +14,22 @@
         })
 </script>
 @endif
+
+
+@if(session('addtocart'))
+<script>
+  var viewportWidth = window.innerWidth;
+
+// Trigger the confetti animation with extremely copious particles
+confetti({
+    particleCount: 20000, // Increase particle count for extremely copious confetti
+    spread: viewportWidth,
+    origin: { y: 0.6 } // Adjust origin to start from the top
+});
+</script>
+@endif
+
+
 <div class="container my-5">
   <div class="row">
   <h2 class="h5 col-12 shop-heading mb-5"></h2>
