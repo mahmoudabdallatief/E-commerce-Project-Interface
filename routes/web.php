@@ -44,6 +44,8 @@ Route::post('/deletefromcart', [CartController::class, 'deletefromcart'])->name(
 Route::post('/deleteallfromcart', [CartController::class, 'deleteallfromcart'])->name('deleteallfromcart');
 Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout');
 Route::get('/orders', [OrderController::class, 'index'])->name('orders');
+Route::get('/paymob', [OrderController::class, 'paymob'])->name('paymob');
+Route::get('/status', [OrderController::class, 'status'])->name('status');
 });
 
 

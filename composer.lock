@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cf14086919a839fe740e00554e4baff6",
+    "content-hash": "afed0d421d104284404c291fdd8158d7",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -959,6 +959,72 @@
                 }
             ],
             "time": "2023-04-17T16:11:26+00:00"
+        },
+        {
+            "name": "jn-jairo/laravel-ngrok",
+            "version": "v2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jn-jairo/laravel-ngrok.git",
+                "reference": "7a72547a52ca046ef12d0a6d2ae78fa2906ca6c3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jn-jairo/laravel-ngrok/zipball/7a72547a52ca046ef12d0a6d2ae78fa2906ca6c3",
+                "reference": "7a72547a52ca046ef12d0a6d2ae78fa2906ca6c3",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.3|^7.0",
+                "illuminate/console": "^6.0|^7.0|^8.0|^9.0",
+                "illuminate/http": "^6.0|^7.0|^8.0|^9.0",
+                "illuminate/pagination": "^6.0|^7.0|^8.0|^9.0",
+                "illuminate/routing": "^6.0|^7.0|^8.0|^9.0",
+                "illuminate/support": "^6.0|^7.0|^8.0|^9.0",
+                "php": "^7.3|^8.0",
+                "symfony/process": "^4.0|^5.0|^6.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^4.0|^5.0|^6.0|^7.0",
+                "phpspec/prophecy": "^1.15",
+                "phpspec/prophecy-phpunit": "^2.0",
+                "phpunit/phpunit": "^9.5",
+                "squizlabs/php_codesniffer": "^3.6"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "JnJairo\\Laravel\\Ngrok\\NgrokServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JnJairo\\Laravel\\Ngrok\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jairo Correa",
+                    "email": "jn.j41r0@gmail.com"
+                }
+            ],
+            "description": "Share Laravel application with ngrok.",
+            "homepage": "https://github.com/jn-jairo/laravel-ngrok",
+            "keywords": [
+                "jn-jairo",
+                "laravel-ngrok"
+            ],
+            "support": {
+                "issues": "https://github.com/jn-jairo/laravel-ngrok/issues",
+                "source": "https://github.com/jn-jairo/laravel-ngrok/tree/v2.0.4"
+            },
+            "time": "2023-01-13T20:56:27+00:00"
         },
         {
             "name": "laravel/framework",
@@ -2939,6 +3005,44 @@
                 }
             ],
             "time": "2021-09-25T23:10:38+00:00"
+        },
+        {
+            "name": "samir-hussein/paymob",
+            "version": "2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/samir-hussein/paymob.git",
+                "reference": "5e7b59aba9fa810076925da9a17e02373ae494a4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/samir-hussein/paymob/zipball/5e7b59aba9fa810076925da9a17e02373ae494a4",
+                "reference": "5e7b59aba9fa810076925da9a17e02373ae494a4",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PayMob\\": "paymob/laravel",
+                    "Paymob\\": "paymob"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Samir Ebrahim Hussein",
+                    "email": "samirhussein274@gmail.com"
+                }
+            ],
+            "description": "paymob payment gateway",
+            "support": {
+                "issues": "https://github.com/samir-hussein/paymob/issues",
+                "source": "https://github.com/samir-hussein/paymob/tree/2.0"
+            },
+            "time": "2023-01-24T23:40:17+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -7793,5 +7897,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }

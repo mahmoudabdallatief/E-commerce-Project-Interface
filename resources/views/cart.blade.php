@@ -1,6 +1,18 @@
 @extends('layout')
 @section('title','Cart')
 @section('content')
+@if(session('failed'))
+<script>
+  Swal.fire({
+          position: 'top-top',
+          icon: 'error',
+          title: "{{session('failed')}}",
+          showConfirmButton: false,
+          timer: 2000,
+      
+        })
+</script>
+@endif
 <div class="container my-5">
   <div class="row">
   <h2 class="h5 col-12 shop-heading mb-5"></h2>

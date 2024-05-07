@@ -5,6 +5,7 @@ use App\Models\Cart;
 use App\Models\Rating;
 use App\Models\Product;
 use App\Models\Order;
+use App\Models\OrderDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -109,6 +110,21 @@ public function checkout(Request $request)
     if ($validator->fails()) {
         return response()->json(['errors' => $validator->errors()], 422);
     }
+    $carts = Cart::where('id_user',session('login'))->orderBy('id','desc')->get();
+    $ids = [];
+    $counts = [];
+    $totals =[];
+foreach($carts as $cart){
+$ids[] = $cart->id_pro;
+$counts[] = $cart ->quantity;
+$totals[] = $cart->total;
+}
+//dd($ids,$counts,$totals);
+    $order_details = OrderDetails::create([
+'product_id' =>implode(',',$ids),
+'count' =>implode(',',$counts),
+'total' =>implode(',',$totals),
+    ]);
     $order = new Order();
 $order->user_id = session('login');
 $order->billing_name = $request->input('billing_name');
@@ -121,11 +137,11 @@ $order->shipping_address = $request->input('shipping_address');
 $order->shipping_city = $request->input('shipping_city');
 $order->shipping_state = $request->input('shipping_state');
 $order->shipping_zip = $request->input('shipping_zip');
+$order->status ="Unpaid";
+$order->order_details_id =$order_details->id;
 $order->total = Cart::where("id_user",session('login'))->sum("total");
 $order->save();
 
-
-DB::table('chart')->where('id_user',session('login'))->delete();
-    return response()->json(['redirect_url' => route('orders')]);
+    return response()->json(['redirect_url' => route('paymob')]);
 }
 }

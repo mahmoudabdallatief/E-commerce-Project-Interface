@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: 29 نوفمبر 2023 الساعة 23:47
+-- Generation Time: 07 مايو 2024 الساعة 16:33
 -- إصدار الخادم: 10.4.25-MariaDB
 -- PHP Version: 7.4.30
 
@@ -153,11 +153,7 @@ INSERT INTO `chart` (`id`, `id_user`, `id_pro`, `quantity`, `total`, `created_at
 (223, 233, 83, 19, '1063.81', NULL, NULL),
 (224, 233, 95, 19, '2166.00', NULL, NULL),
 (233, 233, 67, 1, '87.00', NULL, NULL),
-(394, 224, 69, 1, '100.00', NULL, NULL),
-(395, 224, 68, 5, '900.00', NULL, NULL),
-(396, 224, 71, 5, '960.00', NULL, NULL),
-(406, 224, 194, 1, '19.85', NULL, NULL),
-(407, 224, 114, 2, '1198.00', NULL, NULL);
+(439, 224, 69, 5, '500.00', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -269,7 +265,8 @@ INSERT INTO `message` (`id`, `name`, `email`, `number`, `message`, `view`, `date
 (262, 'موبينيل', 'mahmo\'ud@elementor.com', '01227672362', 'عشان لازم نكون مع بعض', 1, '2023-07-29 19:56:40'),
 (263, 'حسن حسني', 'mahmo\'ud@elementor.com', '01227672362', 'المستحيل ليس نصراني', 1, '2023-07-29 19:57:10'),
 (264, 'ماما', 'mahmo\'ud@elementor.com', '01227672362', 'وحشتني يا محمود', 1, '2023-07-29 19:58:48'),
-(273, 'saaaaassaa', 'mahmoudel@mentor.com', '01280506474', 'lmaza', 1, '2023-08-16 00:55:12');
+(273, 'saaaaassaa', 'mahmoudel@mentor.com', '01280506474', 'lmaza', 1, '2023-08-16 00:55:12'),
+(279, 'محمود', 'hodamedocrv@gmail.com', '01227672362', 'ooooooooooooooooooooooooooooooo', 0, '2023-12-30 20:46:15');
 
 -- --------------------------------------------------------
 
@@ -292,6 +289,8 @@ CREATE TABLE `migrations` (
 CREATE TABLE `orders` (
   `id` int(1) NOT NULL,
   `user_id` int(1) NOT NULL,
+  `status` varchar(10) NOT NULL,
+  `order_details_id` int(11) NOT NULL,
   `billing_name` varchar(255) NOT NULL,
   `billing_address` varchar(255) NOT NULL,
   `billing_city` varchar(255) NOT NULL,
@@ -303,16 +302,44 @@ CREATE TABLE `orders` (
   `shipping_state` varchar(255) NOT NULL,
   `shipping_zip` varchar(255) NOT NULL,
   `total` decimal(9,2) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- إرجاع أو استيراد بيانات الجدول `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `billing_name`, `billing_address`, `billing_city`, `billing_state`, `billing_zip`, `shipping_name`, `shipping_address`, `shipping_city`, `shipping_state`, `shipping_zip`, `total`, `created_at`) VALUES
-(26, 224, 'mahmou\'d', 'tant\'a', 'zaya\'t', 'delt\'a', '123456789', 'ahm\'ed', 'bahir\'a', 'man\'soura', 'delt\'a', '123456789', '2700.00', '2023-08-17 03:12:54'),
-(27, 229, 'abd\'alla', 'mounofi\'a', 'sheb\'in', 'elkou\'bry', '1234567894', 'Ism\'ail', 'alexa\'ndria', 'sydi-Ga\'ber', 'el-ba\'hr', '123451234567', '3132.00', '2023-08-17 00:22:44');
+INSERT INTO `orders` (`id`, `user_id`, `status`, `order_details_id`, `billing_name`, `billing_address`, `billing_city`, `billing_state`, `billing_zip`, `shipping_name`, `shipping_address`, `shipping_city`, `shipping_state`, `shipping_zip`, `total`, `created_at`, `updated_at`) VALUES
+(42, 224, 'Unpaid', 22, 'hoda', 'hoda', 'hoda', 'hoda', '12345', 'hoda', 'hoda', 'hoda', 'hoda', '12345', '180.00', '2024-05-06 08:18:51', '2024-05-06 08:35:07'),
+(43, 224, 'Unpaid', 23, 'mmm', 'mmmm', 'mmm', 'mmmm', '6666', 'kkkkkk', 'kkkkk', 'kkkkkkkkkk', 'kkkkkk', '8888', '180.00', '2024-05-06 08:21:50', '2024-05-06 08:35:07'),
+(44, 224, 'Unpaid', 24, 'hoda', 'hoda', 'hoda', 'hoda', '12345', 'hoda', 'hoda', 'hoda', 'hoda', '66666666', '948.00', '2024-05-06 08:23:32', '2024-05-06 08:35:07'),
+(47, 224, 'Unpaid', 27, 'mmm', 'mmmm', 'mmm', 'mmmm', '6666', 'lmaza', 'lmaza', 'lmaza', 'lmaza', '12345', '500.00', '2024-05-06 08:42:03', '2024-05-06 08:42:03');
+
+-- --------------------------------------------------------
+
+--
+-- بنية الجدول `order_deatails`
+--
+
+CREATE TABLE `order_deatails` (
+  `id` int(11) NOT NULL,
+  `product_id` text NOT NULL,
+  `count` text NOT NULL,
+  `total` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- إرجاع أو استيراد بيانات الجدول `order_deatails`
+--
+
+INSERT INTO `order_deatails` (`id`, `product_id`, `count`, `total`, `created_at`, `updated_at`) VALUES
+(22, '68', '1', '180', '2024-05-06 08:18:51', '2024-05-06 08:35:07'),
+(23, '68', '1', '180', '2024-05-06 08:21:50', '2024-05-06 08:35:07'),
+(24, '71,68', '4,1', '768,180', '2024-05-06 08:23:32', '2024-05-06 08:35:07'),
+(27, '69', '5', '500.00', '2024-05-06 08:42:03', '2024-05-06 08:42:03');
 
 -- --------------------------------------------------------
 
@@ -359,7 +386,7 @@ CREATE TABLE `prro` (
 --
 
 INSERT INTO `prro` (`id`, `name`, `price`, `count`, `brand`, `cat`, `des`, `cover`, `date`, `offer`) VALUES
-(67, 'Samsung Galaxy A12 (32GB, 3GB) 6.5\' HD+, Quad Camera, 5000mAh Battery, Global 4G Volte (AT&T Unlocked for T-Mobile, Verizon, Metro) A125U (Blue)', '174.00', 32, 4, 2, '6.5\" 720 x 1600 (HD+) PLS TFT LCD Infinity-V Display, 5000mAh Battery, Fingerprint (side-mounted)128GB ROM, 4GB RAM, Exynos 850 (8nm), Octa-core (4x2.0 GHz Cortex-A55 &amp; 4x2.0 GHz Cortex-A55), Mali-G52, Android 11, One UI 3.1Rear Camera: 48MP, F2.0 + 5MP, F2.2 + 2MP, F2.4 + 2MP, F2.4, Front Camera: 8MP, F2.2, Bluetooth 5.02G Bands: 850, 900, 1800, 1900MHz, 3G Bands: 850, 900, 1700, 1900, 4G LTE Bands: 1, 3, 5, 7, 8, 20, 28, 38, 40, 41 - Dual SIMInternational Model - No Warranty in US. Compatible with Most GSM Carriers like T-Mobile, AT&amp;T, MetroPCS, etc. Will NOT work with CDMA Carriers Such as Verizon, Cricket, Boost', '888af5988301ee411a7e55d092d12a231a.jpg,0ab1ccdeda8ad297d143b3b776fa24481b_.jpg,62dd7a4166b11fd54bb7441ed551cf1b1c_.jpg,e85f0c562ad93da2f3033f668a13d4631d.jpg', '2023-08-10 12:00:00', '87.00'),
+(67, 'Samsung Galaxy A12 (32GB, 3GB) 6.5\' HD+, Quad Camera, 5000mAh Battery, Global 4G Volte (AT&T Unlocked for T-Mobile, Verizon, Metro) A125U (Blue)', '174.00', 32, 4, 2, '6.5\" 720 x 1600 (HD+) PLS TFT LCD Infinity-V Display, 5000mAh Battery, Fingerprint (side-mounted)128GB ROM, 4GB RAM, Exynos 850 (8nm), Octa-core (4x2.0 GHz Cortex-A55 &amp; 4x2.0 GHz Cortex-A55), Mali-G52, Android 11, One UI 3.1Rear Camera: 48MP, F2.0 + 5MP, F2.2 + 2MP, F2.4 + 2MP, F2.4, Front Camera: 8MP, F2.2, Bluetooth 5.02G Bands: 850, 900, 1800, 1900MHz, 3G Bands: 850, 900, 1700, 1900, 4G LTE Bands: 1, 3, 5, 7, 8, 20, 28, 38, 40, 41 - Dual SIMInternational Model - No Warranty in US. Compatible with Most GSM Carriers like T-Mobile, AT&amp;T, MetroPCS, etc. Will NOT work with CDMA Carriers Such as Verizon, Cricket, Boost', '888af5988301ee411a7e55d092d12a231a.jpg,0ab1ccdeda8ad297d143b3b776fa24481b_.jpg,62dd7a4166b11fd54bb7441ed551cf1b1c_.jpg,e85f0c562ad93da2f3033f668a13d4631d.jpg', '2024-04-09 12:00:00', '87.00'),
 (68, 'OnePlus Nord N20 5G |Android Smart Phone |6.43', '180.00', 15, 4, 2, '<ul class=\"a-unordered-list a-vertical a-spacing-mini\" style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 18px; color: rgb(15, 17, 17); padding: 0px; font-family: \" amazon=\"\" ember\",=\"\" arial,=\"\" sans-serif;=\"\" font-size:=\"\" 14px;=\"\" background-color:=\"\" rgb(255,=\"\" 255,=\"\" 255);\"=\"\"><li style=\"list-style: disc; overflow-wrap: break-word; margin: 0px;\"><span class=\"a-list-item\">5G Enabled - The OnePlus Nord N20 is the perfect entry-level 5G phone, featuring premium specs and an affordable price. *5G compatible with T-mobile, Google Fi, Mint Mobile, Metro by TMO, Simple Mobile. 5G available in selected areas, please check with your carrier.</span></li><li style=\"list-style: disc; overflow-wrap: break-word; margin: 0px;\"><span class=\"a-list-item\">6.43” Display - Immerse yourself into your favorite content with a large FHDplus AMOLED Display, delivering sharp detail and deep colors.</span></li><li style=\"list-style: disc; overflow-wrap: break-word; margin: 0px;\"><span class=\"a-list-item\">Qualcomm Snapdragon 695 - With 6GB of powerful RAM and a 5G Snapdragon processor, the N20 5G can handle anything from your favorite content to streaming online games.</span></li><li style=\"list-style: disc; overflow-wrap: break-word; margin: 0px;\"><span class=\"a-list-item\">Large 4500mAh Battery - Spend less time plugged in with an extra large battery.</span></li><li style=\"list-style: disc; overflow-wrap: break-word; margin: 0px;\"><span class=\"a-list-item\">33W Fast Charging - Get a day’s power in half an hour with 33W Fast Charging.</span></li><li style=\"list-style: disc; overflow-wrap: break-word; margin: 0px;\"><span class=\"a-list-item\">6GB RAM - Download your favorite games and apps and switch seamlessly between them.</span></li><li style=\"list-style: disc; overflow-wrap: break-word; margin: 0px;\"><span class=\"a-list-item\">128GB Storage - Store photos and videos without worry with large expandable storage, up to 512GB.</span></li></ul>', 'fb7c95931f2ba2386c13f2e69fbf02282a.jpg,23d96a4cb5020ccad6fbc5eaec7c98f82b.jpg,77b06789ca6e520f5a203ebce9628f142c.jpg,46925d3cff09bddae68a6533085e9a842d.jpg', '2023-06-01 17:34:00', '90.00'),
 (69, 'SAMSUNG Galaxy Z Fold 4 Cell Phone, Factory Unlocked Android Smartphone, 256GB, Flex Mode, Hands Free Video, Multi Window View, Foldable Display, S Pen Compatible, US Version, Phantom Black     ', '100.00', 12, 4, 2, '<ul class=\"a-unordered-list a-vertical a-spacing-mini\" style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 18px; color: rgb(15, 17, 17); padding: 0px; font-family: \" amazon=\"\" ember\",=\"\" arial,=\"\" sans-serif;=\"\" font-size:=\"\" 14px;=\"\" background-color:=\"\" rgb(255,=\"\" 255,=\"\" 255);\"=\"\"><li style=\"list-style: disc; overflow-wrap: break-word; margin: 0px;\"><span class=\"a-list-item\">FLEX MODE: Free up your hands with Flex Mode on the Galaxy Z Fold4; This smartphone stands on its own so you can take notes during a conference call or follow along with instructional videos in real time.Form_factor : Fold</span></li><li style=\"list-style: disc; overflow-wrap: break-word; margin: 0px;\"><span class=\"a-list-item\">HANDS FREE VIDEO: Don’t stay stuck to your cellphone; Set up your phone in Flex Mode and check off your to-dos while catching up with friends; Hands-free video chat lets you multitask and move freely while staying in frame</span></li><li style=\"list-style: disc; overflow-wrap: break-word; margin: 0px;\"><span class=\"a-list-item\">MULTI-VIEW WINDOW: Easily attend a virtual work meeting and capture important notes at the same time, or catch up on your favorite shows as you answer texts; With multiple windows, doing different tasks is easy with Galaxy Z Fold4</span></li><li style=\"list-style: disc; overflow-wrap: break-word; margin: 0px;\"><span class=\"a-list-item\">S PEN READY: Transform your Galaxy Z Fold4 into a multifunctional device with S Pen; It gives you that pen-on-paper feeling and makes it easy to take notes while attending virtual meetings, drag and drop content, and get more done</span></li><li style=\"list-style: disc; overflow-wrap: break-word; margin: 0px;\"><span class=\"a-list-item\">YOUR APPS, YOUR WAY: App display optimization allows you to customize how you see apps on the edge-to-edge screen of Galaxy Z Fold4; Also, use multiple apps to their full potential by dragging and dropping content from one window to the other</span></li><li style=\"list-style: disc; overflow-wrap: break-word; margin: 0px;\"><span class=\"a-list-item\">YOUR PHONE &amp; WATCH WORK AS ONE: Unfold the possibilities of your Galaxy Z Fold4 connected to your Galaxy Watch; Use your Watch to snap hands-free selfies with Flex Mode; Plus, keep track of your day by easily switching between your Galaxy Watch and phone</span></li><li style=\"list-style: disc; overflow-wrap: break-word; margin: 0px;\"><span class=\"a-list-item\">BIG SCREEN, BIG SOUND: Need to head out while you’re in the middle of your favorite podcast, Slide Galaxy Z Fold4 into your pocket and keep listening with your Galaxy Buds; Unfold connectivity with your smart phone and Buds working together</span></li></ul>', 'b13c94bb8dd7ede77ba3a10b4dfc48f03a.jpg,43dfa4c13730b3e4490f2d190aff6b653b.jpg,8cc247820abe6ee58ea16491d9e40f163c.jpg,854eb7e582e26e0d853ab7a7cb2bb0283d.jpg', '2023-06-07 17:53:00', '50.00'),
 (70, 'SAMSUNG Galaxy S20 FE 5G Cell Phone, Factory Unlocked Android Smartphone, 128GB, Pro Grade Camera, 30X Space Zoom, Night Mode, US Version, Cloud Navy', '669.00', 19, 4, 2, 'MORE FREEDOM: With unlocked by Samsung, you call the shots; Start with the Galaxy S20 FE 5G then choose your carrier, data plan, services, features, and apps, so you get the phone you want, set up exactly how you want.Form_factor : SmartphoneINFINITY-O DISPLAY: The 6.5” FHD Infinity-O Display has barely-there bezels surrounding the flat edges, and a super small punch hole for the camera*; Meaning a more immersive screen that makes your gaming, streaming, and video calling way more funPRO-GRADE CAMERA: The same pro-grade triple lens S20 camera, now available in FE; Three cameras on the rear let you snapshot moments in your own way30X SPACE ZOOM: Zoom in close from afar or magnify details of something nearby with the power of 30X Space ZoomNIGHT MODE: With bigger pixels and enhanced camera AI, the rear camera adjusts to pull in light even when it’s dark so your shots come out detailed and colorfulSINGLE-TAKE AI: One tap of the screen captures multiple images and videos all at once. the Super AMOLED display refreshes at a super smooth 120Hz to keep action clear and touch response fastGET THE MOST OUT OF 5G: Powered by Qualcomm Snapdragon 865 5G Mobile Platform, you can game on in real time with little lag, while your streams and video calls come through clear', 'a93ab88df0ced9687806ddb9eec3e6844a.jpg,9b12c062a336d22e2cf9db8c9c02c91a4b.jpg,04a3aa42bb6d0390558c5d5a9ab997c64c.jpg,914aba576d205b98d4d9b72163d1fbd24d.jpg', '2023-08-16 06:02:00', '334.50'),
@@ -375,7 +402,7 @@ INSERT INTO `prro` (`id`, `name`, `price`, `count`, `brand`, `cat`, `des`, `cove
 (80, 'ORIbox Case Compatible with iPhone 11 Case, Heavy Duty Shockproof Anti-Fall Clear case', '44.82', 12, 1, 2, '<ul class=\"a-unordered-list a-vertical a-spacing-mini\" style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 18px; color: rgb(15, 17, 17); padding: 0px; font-family: \" amazon=\"\" ember\",=\"\" arial,=\"\" sans-serif;=\"\" font-size:=\"\" 14px;=\"\" background-color:=\"\" rgb(255,=\"\" 255,=\"\" 255);\"=\"\"><li style=\"list-style: disc; overflow-wrap: break-word; margin: 0px;\"><span class=\"a-list-item\">Display size: 6.1 inches.【Compatible Model 】Compatible with Apple iPhone 11, Crystal Grey</span></li><li style=\"list-style: disc; overflow-wrap: break-word; margin: 0px;\"><span class=\"a-list-item\">【Full Body Protection】3 in 1 Armor construction, inner shell &amp; Soft TPU outer cover shell, offer dual layer protecion, effectively prevents your iphone from impact and scraches.[NOTE: NO front cover/ NO 3rd part screen protector included]</span></li><li style=\"list-style: disc; overflow-wrap: break-word; margin: 0px;\"><span class=\"a-list-item\">【Crystal Design】This clear case shows the original color of your phone,keep your iPhone in natural look with raised lips around screen and camera, offer a better protection. (basic heavy duty case)</span></li><li style=\"list-style: disc; overflow-wrap: break-word; margin: 0px;\"><span class=\"a-list-item\">【Perfect Fit】Exact cutouts for all ports and buttons.Easy to access all original function with full cover protection,charging without removing case.There are dustproof flaps on USB and ring/vibrate switch, keep dust out of your phone.</span></li><li style=\"list-style: disc; overflow-wrap: break-word; margin: 0px;\"><span class=\"a-list-item\">【Amazon After-Sales Service】Any defective for this transparent case, please feel free to message us, we will offer you the suitable solution within 1 business day</span></li></ul>', 'e9532190347ace083d473313f981382314a.jpg,27b2d1053f412e067a1c548c9fcafec214b.jpg,f0494f75f8fcc645eb780ee2301c2bfc14c.jpg,b859caefa3d8e2d431cd4fa948ae85d014d.jpg', '0000-00-00 00:00:00', '0.00'),
 (81, 'WWW Samsung Galaxy Note 10 Case, Galaxy Note 10 Wallet Case,[Luxurious Romantic Carved Flower] Leather Wallet Case with [Makeup Mirror] [Kickstand Feature] for Samsung Galaxy Note 10 (2019) Black', '14.00', 34, 4, 2, '<ul class=\"a-unordered-list a-vertical a-spacing-mini\" style=\"margin-right: 0px; margin-bottom: 0px; margin-left: 18px; color: rgb(15, 17, 17); padding: 0px; font-family: \" amazon=\"\" ember\",=\"\" arial,=\"\" sans-serif;=\"\" font-size:=\"\" 14px;=\"\" background-color:=\"\" rgb(255,=\"\" 255,=\"\" 255);\"=\"\"><li style=\"list-style: disc; overflow-wrap: break-word; margin: 0px;\"><span class=\"a-list-item\">Special design for Samsung Galaxy Note 10 6.3 inches (2019 Released) only. NOTE: This case is not compatible with Note 10 plus /note10 plus 5g /S10.Precise cutouts give access to all ports.</span></li><li style=\"list-style: disc; overflow-wrap: break-word; margin: 0px;\"><span class=\"a-list-item\">Unique Luxury Laser Carved Flower. Made with premium PU leather.</span></li><li style=\"list-style: disc; overflow-wrap: break-word; margin: 0px;\"><span class=\"a-list-item\">Inside Cosmetics Mirror Meets Daily Makeup need.</span></li><li style=\"list-style: disc; overflow-wrap: break-word; margin: 0px;\"><span class=\"a-list-item\">Built-in Card Pockets and Note Holder offer Store all Cards and some Cash.</span></li><li style=\"list-style: disc; overflow-wrap: break-word; margin: 0px;\"><span class=\"a-list-item\">Kickstand function is convenient for movie-watching or video-chatting. Bring more freedom for hands.</span></li></ul>', '77f0cbe4f5caca9013f7fa363f86481f15a.jpg,4b5ebf0fad3b7312b2960e39715e105415b.jpg,c1f712145c839e7db77edc7603929d5015c.jpg,575616536892a31a51ad1f0a5abcd6d415d.jpg', '2023-06-09 03:00:00', '10.00'),
 (82, 'Men Casual Premium Slim Fit T-Shirts      ', '22.30', 45, 7, 19, '<span style=\"font-family: Arial, Helvetica, sans-serif; text-align: center; background-color: rgb(250, 185, 6);\">Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight &amp; soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.</span><br>', '6bddb58947e9111e048360b9b7279e8716a.jpg,e84752a06ebc7a18661ccf0944ed42c616b.jpg,c851d793b67cc65b0a56d5e7149ade6016c.jpg,a35ec42d29d3e2942466730edff08e6f16d.jpg', '2023-02-18 06:01:00', '11.15'),
-(83, 'Mens Cotton Jacket', '55.99', 19, 7, 19, '<span style=\"font-family: Arial, Helvetica, sans-serif; text-align: center; background-color: rgb(250, 185, 6);\">great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.</span><br>', 'a3fe1da8c0a4505e1da811be2c6af55317a.jpg,023563f33ad2964859f3f9c9aa85892f17b.jpg,68ec897550575c4073d7eaef41096fd417c.jpg,8d1c993cbdd7a0320b681e3c66e9f3d617d.jpg', '0000-00-00 00:00:00', '0.00'),
+(83, 'Mens Cotton Jacket', '55.99', 19, 7, 19, '<span style=\"font-family: Arial, Helvetica, sans-serif; text-align: center; background-color: rgb(250, 185, 6);\">great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.</span><br>', 'a3fe1da8c0a4505e1da811be2c6af55317a.jpg,023563f33ad2964859f3f9c9aa85892f17b.jpg,68ec897550575c4073d7eaef41096fd417c.jpg,8d1c993cbdd7a0320b681e3c66e9f3d617d.jpg', '2024-06-09 12:00:00', '28.30'),
 (84, 'Mens Casual Slim Fit', '15.99', 13, 7, 19, '<span style=\"font-family: Arial, Helvetica, sans-serif; text-align: center; background-color: rgb(250, 185, 6);\">The color could be slightly different between on the screen and in practice. / Please note that body builds vary by person, therefore, detailed size information should be reviewed below on the product description.</span><br>', '72213e875083f1b0d232c8867092214218a.jpg,c57ac2e47f011b7ed5838316194f350b18b.jpg,25a82dc6b7165e3cde5bbd5cecd5a48a18c.jpg,6649e6033e46bd6c80a865d8a477edef18d.jpg', '0000-00-00 00:00:00', '0.00'),
 (85, 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops      ', '109.95', 18, 7, 19, '<span style=\"font-family: Arial, Helvetica, sans-serif; text-align: center; background-color: rgb(250, 185, 6);\">Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday</span><br>', '2a7d4006df2b29bd1dc23f306ef4348a19a.jpg,2cc641062c50f6e0f6ea54395072152719b.jpg,2630d42517c0f64462cf220c5663088119c.jpg,e8187e7ba031c58af832c1f389c9dd3119d.jpg', '2023-02-18 06:56:00', '54.98'),
 (86, 'BIYLACLESEN Women\'s 3-in-1 Snowboard Jacket Winter Coats', '56.99', 25, 7, 19, '<span style=\"font-family: Arial, Helvetica, sans-serif; text-align: center; background-color: rgb(250, 185, 6);\">Note:The Jackets is US standard size, Please choose size as your usual wear Material: 100% Polyester; Detachable Liner Fabric: Warm Fleece. Detachable Functional Liner: Skin Friendly, Lightweigt and Warm.Stand Collar Liner jacket, keep you warm in cold weather. Zippered Pockets: 2 Zippered Hand Pockets, 2 Zippered Pockets on Chest (enough to keep cards or keys)and 1 Hidden Pocket Inside.Zippered Hand Pockets and Hidden Pocket keep your things secure. Humanized Design: Adjustable and Detachable Hood and Adjustable cuff to prevent the wind and water,for a comfortable fit. 3 in 1 Detachable Design provide more convenience, you can separate the coat and inner as needed, or wear it together. It is suitable for different season and help you adapt to different climates</span><br>', '75d384b6d94da99243497293ac5df63120a.jpg,486b3c46cbb5661ae4014983e421707520b.jpg,038d63207b4d6b0d1a3fbccb2994da5920c.jpg,05b27f25322b8efde7f2abb1f2bdd31a20d.jpg', '0000-00-00 00:00:00', '0.00'),
@@ -454,7 +481,9 @@ INSERT INTO `ratings` (`id`, `user_id`, `product_id`, `rating`) VALUES
 (51, 229, 115, 5),
 (52, 229, 93, 5),
 (53, 229, 114, 5),
-(54, 238, 115, 2);
+(54, 238, 115, 2),
+(55, 224, 71, 4),
+(56, 224, 67, 5);
 
 -- --------------------------------------------------------
 
@@ -580,6 +609,12 @@ ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `order_deatails`
+--
+ALTER TABLE `order_deatails`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `priv`
 --
 ALTER TABLE `priv`
@@ -633,19 +668,19 @@ ALTER TABLE `cat`
 -- AUTO_INCREMENT for table `chart`
 --
 ALTER TABLE `chart`
-  MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=408;
+  MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=440;
 
 --
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=434;
+  MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=435;
 
 --
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=279;
+  MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=280;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -657,7 +692,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+
+--
+-- AUTO_INCREMENT for table `order_deatails`
+--
+ALTER TABLE `order_deatails`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `priv`
@@ -675,7 +716,7 @@ ALTER TABLE `prro`
 -- AUTO_INCREMENT for table `ratings`
 --
 ALTER TABLE `ratings`
-  MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `users`
