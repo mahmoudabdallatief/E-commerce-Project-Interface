@@ -43,7 +43,7 @@
                 @else
                     <h1 style="color:crimson;" class="mb-3">Orders Information</h1>
                     @foreach($orders as $order)
-                        <h4 style="color:crimson;" class="my-4 fs-bold">Order number : {{$id++}}</h4>
+                        <h4 style="color:crimson;" class="my-4 fs-bold">Order Number : {{$id++}}</h4>
                         <div class="col-12 ">
                             <div class="row">
                                 <div class="col-lg-8 col-md-8 col-sm-12">
