@@ -2,19 +2,6 @@
 @section('title','Cart')
 @section('content')
 
-@if(session('failed'))
-<script>
-  Swal.fire({
-          position: 'top-top',
-          icon: 'error',
-          title: "{{session('failed')}}",
-          showConfirmButton: false,
-          timer: 2000,
-      
-        })
-</script>
-@endif
-
 
 @if(session('addtocart'))
 <script>

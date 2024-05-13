@@ -142,6 +142,8 @@ $order->order_details_id =$order_details->id;
 $order->total = Cart::where("id_user",session('login'))->sum("total");
 $order->save();
 
+DB::table('chart')->where('id_user',session('login'))->delete();
+
     return response()->json(['redirect_url' => route('paymob')]);
 }
 }

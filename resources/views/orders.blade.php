@@ -1,6 +1,34 @@
 @extends('layout')
 @section('title', 'Orders')
 @section('content')
+@if(session('success'))
+<script>
+    
+  Swal.fire({
+          position: 'top-top',
+          icon: 'success',
+          title: "{{session('success')}}",
+          showConfirmButton: false,
+          timer: 2000,
+      
+        })
+        
+</script>
+@endif
+@if(session('failed'))
+<script>
+    
+  Swal.fire({
+          position: 'top-top',
+          icon: 'error',
+          title: "{{session('failed')}}",
+          showConfirmButton: false,
+          timer: 2000,
+      
+        })
+        
+</script>
+@endif
     @php
         $id = 1;
         $time = date('m/d/Y H:i:s', time());
@@ -61,9 +89,9 @@
                                                 <div class="col-md-8 pt-4 p-3">
                                                     <h4><b class="text-light">Product : </b><a href="{{ route('single', ['id' => $details->id]) }}" class="text-decoration-none searchproduct my-3" style="color:gold">{{$details->name}}</a></h4>
                                                     <br>
-                                                    <p class="mb-3"><b class="text-light">Price :</b> <span class="@if ($date_num > $time_num)text-decoration-line-through  @endif ">{{$details->price}}$ .</span></p>
+                                                    <p class="mb-3"><b class="text-light">Price :</b> <span class="@if ($date_num > $time_num)text-decoration-line-through  @endif ">{{$details->price}} $.</span></p>
                                                     @if ($date_num > $time_num)
-                                                        <p class="mt-4"><b class="text-light">Offer :</b> {{$details->offer}}$ .</p>
+                                                        <p class="mt-4"><b class="text-light">Offer :</b> {{$details->offer}} $.</p>
                                                     @endif
                                                     <div class="rate my-3">
                                                         @if ($count  == 0)
@@ -79,7 +107,7 @@
                                                         @endif
                                                     </div>
                                                     <p class="my-2 "><b class="text-light">Quantity :</b> {{$productCounts[$details->id]}}.</p>
-                                                    <p class="my-2 "><b class="text-light">Total :</b> {{$productTotals[$details->id]}}$ .</p>
+                                                    <p class="my-2 "><b class="text-light">Total :</b> {{$productTotals[$details->id]}} $.</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -101,6 +129,15 @@
     <li class='mb-2'><b class='text-light me-2'>Shipping State :</b>{{ $order->shipping_state }}.</li>
     <li class='mb-2'><b class='text-light me-2'>Shipping Zip Code :</b> {{ $order->shipping_zip }}.</li>
     <li class='mb-2 mt-2'><b class='text-light me-2'>Total of All Products :</b>{{ $order->total }} $.</li>
+    @if($order->status == 'Unpaid')
+    <form action="{{route('paymob')}}" method="GET">
+        <input type="hidden" value="{{$order->id}}" name ="id">
+        <button class="btn mb-1 " type="submit" style="color:crimson; background-color:gold; border:1px solid #fff;">
+        <i class="fa-regular fa-credit-card" ></i><b class=' me-2'> Pay Now</b>
+        
+                </button>
+    </form>
+    @endif
 </ul>
                                 </div>
                             </div>

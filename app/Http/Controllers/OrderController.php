@@ -13,17 +13,13 @@ class OrderController extends Controller
 {
     public function index()
 {
-    $orders = Order::where('user_id', session('login'))->where('status','Paid')->orderBy('id', 'desc')->get();
+    $orders = Order::where('user_id', session('login'))->orderBy('id', 'desc')->get();
     
     if ($orders->isEmpty()) {
         $num = 'No Orders Yet';
         return view('orders', ['num' => $num]);
     }
-    $order_check = Order::where('user_id', session('login'))->orderBy('id', 'desc')->first();
-    if($order_check->status == 'Unpaid'){
-         return redirect()->route('cart')->with('failed','Please Payment Successfully firstly');
-    }
-
+    
     foreach ($orders as $order) {
         $totals = []; // Move the initialization of $totals here, outside the inner foreach loop
 
@@ -56,13 +52,20 @@ class OrderController extends Controller
         $order->save(); // Use save() instead of update()
     }
     // Reload the orders after updating the details
-    $orders = Order::where('user_id', session('login'))->where('status','Paid')->orderBy('id', 'desc')->get();
+    $orders = Order::where('user_id', session('login'))->orderBy('id', 'desc')->get();
 
     return view('orders', ['orders' => $orders]);
 }
     
-public function paymob(){
-    $order_data = Order::where('user_id',session('login'))->orderBy('id','desc')->first();
+public function paymob(Request $request){
+
+    if(isset($request->id)){
+        $order_data = Order::findOrFail($request->id);
+    }
+    else{
+        $order_data = Order::where('user_id',session('login'))->orderBy('id','desc')->first();
+    }
+    
 
     $user = User::find(session('login'));
 
@@ -110,11 +113,12 @@ public function status(){
         Order::where('user_id',session('login'))->orderBy('id','desc')->first()->update([
             'status'=>'Paid'
         ]);
-        DB::table('chart')->where('id_user',session('login'))->delete();
-        return redirect()->route('orders');
+       
+        return redirect()->route('orders')->with('success','Your Payment of Order has been paid successfully');
     }
-    else{
-        return redirect()->route('cart')->with('failed','Your Payment of Order has been failed');
+    else{ 
+       
+     return  redirect()->route('orders')->with('failed','Your Payment of Order has been failed');
     }
 }
     
